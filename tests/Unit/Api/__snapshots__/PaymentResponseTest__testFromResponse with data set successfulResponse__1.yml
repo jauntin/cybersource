@@ -1,0 +1,13 @@
+id: id
+status: status
+orderReferenceNumber: code
+approvalCode: approvalCode
+reconciliationId: reconciliationId
+amount: totalAmount
+remoteResponse:
+    id: id
+    status: status
+    reconciliationId: reconciliationId
+    clientReferenceInformation: { code: code }
+    processorInformation: { approvalCode: approvalCode }
+    orderInformation: { amountDetails: { totalAmount: totalAmount } }

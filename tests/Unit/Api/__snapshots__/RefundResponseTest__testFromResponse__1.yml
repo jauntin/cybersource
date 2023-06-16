@@ -1,0 +1,11 @@
+id: id
+status: status
+orderReferenceNumber: code
+reconciliationId: reconciliationId
+refundAmount: refundAmount
+remoteResponse:
+    id: id
+    status: status
+    reconciliationId: reconciliationId
+    clientReferenceInformation: { code: code }
+    refundAmountDetails: { refundAmount: refundAmount }

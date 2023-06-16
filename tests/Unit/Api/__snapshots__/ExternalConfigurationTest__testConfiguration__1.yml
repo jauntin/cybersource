@@ -1,0 +1,28 @@
+accessToken: ''
+username: ''
+password: ''
+defaultHeaders: {  }
+requestHeaders: {  }
+host: apitest.cybersource.com
+userAgent: Swagger-Codegen/1.0.0/php
+curlTimeout: 0
+curlConnectTimeout: 0
+allowEncoding: false
+logConfiguration:
+    loggingEnabled: false
+    enableLogging: false
+    debugLogFile: Cybs.log
+    errorLogFile: Cybs.log
+    logDateFormat: 'Y-m-d\TH:i:s'
+    logFormat: |
+        [%datetime%] [%level_name%] [%channel%] : %message%
+    logMaxFiles: 3
+    logLevel: error
+    maskingEnabled: true
+    enableMasking: true
+curlProxyHost: null
+curlProxyPort: null
+curlProxyType: null
+curlProxyUser: null
+curlProxyPassword: null
+sSLVerification: true

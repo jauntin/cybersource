@@ -1,0 +1,9 @@
+id: id
+status: status
+orderReferenceNumber: null
+approvalCode: null
+reconciliationId: null
+amount: null
+remoteResponse:
+    id: id
+    status: status

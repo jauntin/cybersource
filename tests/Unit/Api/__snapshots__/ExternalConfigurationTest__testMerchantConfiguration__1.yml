@@ -1,0 +1,38 @@
+authenticationType: HTTP_SIGNATURE
+runEnvironment: apitest.cybersource.com
+IntermediateHost: ''
+solutionId: ''
+merchantID: testrest
+keyAlias: testrest
+keyFileName: testrest
+logFileName: ''
+keysDirectory: Resources/
+keyPassword: testrest
+apiKeyID: 08c94330-f618-42a3-b09d-e1e43be5efda
+secretKey: SOMEFAKEKEY
+useMetaKey: false
+portfolioID: ''
+enableClientCert: false
+clientCertDirectory: ''
+clientCertFile: ''
+clientCertPassword: ''
+clientId: ''
+clientSecret: ''
+accessToken: ''
+refreshToken: ''
+method: ''
+host: apitest.cybersource.com
+curlProxyHost: ''
+curlProxyPort: null
+logConfiguration:
+    loggingEnabled: false
+    enableLogging: false
+    debugLogFile: Cybs.log
+    errorLogFile: Cybs.log
+    logDateFormat: 'Y-m-d\TH:i:s'
+    logFormat: |
+        [%datetime%] [%level_name%] [%channel%] : %message%
+    logMaxFiles: 3
+    logLevel: error
+    maskingEnabled: true
+    enableMasking: true
