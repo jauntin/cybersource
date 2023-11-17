@@ -1,0 +1,5 @@
+Content-Type: application/json
+v-c-merchant-id: jauntin
+Date: 'Mon, 20 Nov 2023 12:11:11 GMT'
+signature: 'keyid="08c94330-f618-42a3-b09d-e1e43be5efda", algorithm="HmacSHA256", headers="host date request-target digest v-c-merchant-id", signature="msekARV6ekq9TDxjpuagOs8ZXMSVEeeDE5UrDDCiGsw="'
+Digest: SHA-256=k6I5cakU5erL8KjSUVTNownDwccvu5kU1Hxg88toFYg=

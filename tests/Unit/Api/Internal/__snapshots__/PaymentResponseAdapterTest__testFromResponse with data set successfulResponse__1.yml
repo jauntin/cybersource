@@ -7,7 +7,7 @@ amount: totalAmount
 remoteResponse:
     id: id
     status: status
-    reconciliationId: reconciliationId
     clientReferenceInformation: { code: code }
     processorInformation: { approvalCode: approvalCode }
+    reconciliationId: reconciliationId
     orderInformation: { amountDetails: { totalAmount: totalAmount } }

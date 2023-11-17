@@ -7,8 +7,8 @@ namespace Jauntin\CyberSource\Api;
  */
 final class RefundStatus
 {
-    const STATUS_PENDING = 'PENDING';
-    const SUCCESSFUL_STATUS_VALUES = [
+    public const STATUS_PENDING = 'PENDING';
+    public const SUCCESSFUL_STATUS_VALUES = [
         self::STATUS_PENDING,
     ];
 

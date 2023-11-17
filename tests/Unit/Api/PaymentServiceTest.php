@@ -2,58 +2,68 @@
 
 namespace Jauntin\CyberSource\Tests\Unit\Api;
 
-use CyberSource\Api\PaymentsApi;
-use CyberSource\Model\CreatePaymentRequest;
-use CyberSource\Model\PtsV2PaymentsPost201Response;
-use Exception;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Promise\RejectedPromise;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Http;
 use Jauntin\CyberSource\Api\ErrorResponse;
+use Jauntin\CyberSource\Api\Internal\PaymentRequestAdapter;
+use Jauntin\CyberSource\Api\Internal\PaymentResponseAdapter;
+use Jauntin\CyberSource\Api\Internal\RequestHeaders;
 use Jauntin\CyberSource\Api\PaymentRequest;
-use Jauntin\CyberSource\Api\PaymentRequestAdapter;
 use Jauntin\CyberSource\Api\PaymentResponse;
 use Jauntin\CyberSource\Api\PaymentService;
-use Mockery\MockInterface;
 use Jauntin\CyberSource\Tests\TestCase;
+use Mockery\MockInterface;
 
 class PaymentServiceTest extends TestCase
 {
+    private array $body;
+    private array $response;
+    private MockInterface|PaymentRequest $paymentRequest;
+    private MockInterface|PaymentRequestAdapter $paymentRequestAdapter;
+    private MockInterface|PaymentResponse $paymentResponse;
+    private MockInterface|PaymentResponseAdapter $paymentResponseAdapter;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->body = ['a' => 'b'];
+        $this->response = ['response' => 'response'];
+        $this->paymentRequest = $this->mock(PaymentRequest::class);
+        $this->paymentRequest->referenceNumber = 'referenceNumber';
+        $this->paymentRequestAdapter = $this->mock(PaymentRequestAdapter::class);
+        $this->paymentResponse = $this->mock(PaymentResponse::class);
+        $this->paymentResponseAdapter = $this->mock(PaymentResponseAdapter::class);
+        $this->mock(RequestHeaders::class, function ($mock) {
+            $mock->shouldReceive('generate')
+                ->with('/pts/v2/payments', 'post', json_encode($this->body, JSON_THROW_ON_ERROR))
+                ->andReturn(['header' => 'a']);
+        });
+    }
     public function testPay()
     {
-        $cybersourceResponse = $this->mock(PtsV2PaymentsPost201Response::class);
-        $createPaymentRequest = $this->mock(CreatePaymentRequest::class);
-        $response = $this->mock(PaymentResponse::class);
-        $paymentRequest = $this->mock(PaymentRequest::class);
+        Http::fake(['*' => Http::response($this->response)]);
+        $this->paymentRequestAdapter->shouldReceive('fromPaymentRequest')->with($this->paymentRequest)->andReturn($this->body);
+        $this->paymentResponseAdapter->shouldReceive('fromResponse')->with($this->response)->andReturn($this->paymentResponse);
+        $this->assertEquals($this->paymentResponse, App::make(PaymentService::class)->pay($this->paymentRequest));
+    }
 
-        $this->mock(
-            PaymentRequestAdapter::class,
-            function (MockInterface $mock) use ($paymentRequest, $createPaymentRequest) {
-                $mock->shouldReceive('fromPaymentRequest')
-                    ->with($paymentRequest, false, false)
-                    ->once()
-                    ->andReturn($createPaymentRequest);
-            }
-        );
-        $this->mock(PaymentsApi::class, function (MockInterface $mock) use ($createPaymentRequest, $cybersourceResponse) {
-            $mock->shouldReceive('createPayment')->with($createPaymentRequest)->andReturn([$cybersourceResponse]);
-        });
-        $this->mock(PaymentResponse::class, function (MockInterface $mock) use ($cybersourceResponse, $response) {
-            $mock->shouldReceive('fromResponse')->with($cybersourceResponse)->once()->andReturn($response);
-        });
-
-
-        $this->assertSame($response, App::make(PaymentService::class)->pay($paymentRequest));
+    public function testPayFailedRequestErrorResponse()
+    {
+        Http::fake(['*' => Http::response(['response' => 'response'], 400)]);
+        $this->paymentRequestAdapter->shouldReceive('fromPaymentRequest')->with($this->paymentRequest)->andReturn($this->body);
+        $this->paymentResponseAdapter->shouldReceive('fromResponse')->with($this->response)->andReturn($this->paymentResponse);
+        $this->assertEquals($this->paymentResponse, App::make(PaymentService::class)->pay($this->paymentRequest));
     }
 
     public function testPayThrowableErrorResponse()
     {
-        $e = new Exception();
-        $this->mock(PaymentRequestAdapter::class, function (MockInterface $mock) use ($e) {
-            $mock->shouldReceive('fromPaymentRequest')->andThrow($e);
-        });
-        $this->mock(ErrorResponse::class, function (MockInterface $mock) use ($e) {
-            $mock->shouldReceive('fromThrowable')->with($e)->once();
+        Http::fake(['*' => fn ($request) => new RejectedPromise(new ConnectException('Foo', $request->toPsrRequest()))]);
+        $errorResponse = $this->mock(ErrorResponse::class, function (MockInterface $mock) {
+            $mock->shouldReceive('fromThrowable')->once()->andReturnSelf();
         });
 
-        App::make(PaymentService::class)->pay($this->mock(PaymentRequest::class));
+        $this->assertSame($errorResponse, App::make(PaymentService::class)->pay($this->paymentRequest));
     }
 }

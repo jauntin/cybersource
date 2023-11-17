@@ -10,10 +10,10 @@ Provides some basic Cybersource payment management for use by Jauntin
 2. If needed, publish the config and set values. This is optional, as you can view `config/config.php` and set the correct environment variables without publishing.
     - `php artisan vendor:publish --provider="Jauntin\\CyberSource\\CyberSourceServiceProvider" --tag="config"`
 
-## Cybersource-polyfill
+## Testing
 
-Contains a direct copy of the classes used in `cybersource/rest-client-php:0.0.38`, which has been removed from the package, in order to continue using Flex Tokens temporarily.
-
-## testing
-
-Helpers for mocking payment services.
+- Helpers for mocking payment services are located in the `testing` directory.
+- See `config` for environment variables that will trigger unsuccessful requests in the staging environment. Setting any of these to true will send invalid data to cybersource, and allow manual testers to see how your application responds to failed requests.
+  - CS_TEST_PAYMENT_DECLINE
+  - CS_TEST_PAYMENT_INVALID_DATA
+  - CS_TEST_REFUND_INVALID_DATA
