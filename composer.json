@@ -38,11 +38,6 @@
       "Jauntin\\CyberSource\\Tests\\": "tests"
     }
   },
-  "scripts": {
-    "test": "vendor/bin/phpunit",
-    "analyze": "vendor/bin/pint && vendor/bin/phpstan analyse --memory-limit=1G",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-  },
   "config": {
     "sort-packages": true
   },
