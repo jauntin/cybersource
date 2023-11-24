@@ -1,0 +1,6 @@
+clientReferenceInformation:
+    code: referenceNumber
+orderInformation:
+    amountDetails: { totalAmount: totalAmount, currency: currency }
+paymentInformation:
+    card: { expirationMonth: '13' }

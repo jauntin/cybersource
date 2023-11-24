@@ -3,6 +3,7 @@
 namespace Jauntin\CyberSource\Tests;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase as Base;
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -14,6 +15,7 @@ abstract class TestCase extends Base
     {
         parent::setUp();
         $this->setTestConfig();
+        Http::preventStrayRequests();
     }
 
     protected function setTestConfig(): void

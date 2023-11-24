@@ -2,14 +2,10 @@
 
 namespace Jauntin\CyberSource;
 
-use CyberSource\Api\KeyGenerationApi;
-use CyberSource\Api\PaymentsApi;
-use CyberSource\Api\RefundApi;
-use CyberSource\ApiClient;
-use Exception;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use Jauntin\CyberSource\Api\ExternalConfiguration;
+use Jauntin\CyberSource\Api\Internal\PaymentRequestAdapter;
+use Jauntin\CyberSource\Api\Internal\RefundRequestAdapter;
 
 final class CyberSourceServiceProvider extends ServiceProvider
 {
@@ -29,18 +25,10 @@ final class CyberSourceServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'cybersource');
 
-        $this->app->bind(
-            ApiClient::class,
-            function (Container $container) {
-                if (config('app.env') === 'testing') {
-                    throw new Exception('External requests can never be allowed in testing');
-                }
-                $externalConfiguration = $container->get(ExternalConfiguration::class);
-                return new ApiClient(
-                    $externalConfiguration->configuration(),
-                    $externalConfiguration->merchantConfiguration(),
-                );
-            }
-        );
+        $this->app->bind(PaymentRequestAdapter::class, fn () => new PaymentRequestAdapter(
+            testDecline: Config::get('cybersource.test.payment.decline'),
+            testInvalidData: Config::get('cybersource.test.payment.invalid_data')
+        ));
+        $this->app->bind(RefundRequestAdapter::class, fn () => new RefundRequestAdapter(testInvalidData: Config::get('cybersource.test.refund.invalid_data')));
     }
 }

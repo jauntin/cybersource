@@ -17,32 +17,26 @@
   ],
   "require": {
     "php": "^8.1",
-    "cybersource/rest-client-php": "0.0.41",
-    "illuminate/support": "^9.0|^10.0"
+    "illuminate/support": "^10.0"
   },
   "require-dev": {
-    "orchestra/testbench": "^7.0|^8.0",
+    "guzzlehttp/guzzle": "^7.8",
+    "laravel/pint": "^1.13",
+    "orchestra/testbench": "^8.0",
     "phpstan/phpstan": "^1.10",
-    "phpunit/phpunit": "^9.0|^10.0",
-    "spatie/phpunit-snapshot-assertions": "^4.0|^5.0",
-    "squizlabs/php_codesniffer": "^3.7"
+    "phpunit/phpunit": "^10.4",
+    "spatie/phpunit-snapshot-assertions": "^5.1.2"
   },
   "autoload": {
     "psr-4": {
       "Jauntin\\CyberSource\\": "src",
-      "Jauntin\\CyberSource\\Testing\\": "testing",
-      "CyberSource\\": "cybersource-polyfill"
+      "Jauntin\\CyberSource\\Testing\\": "testing"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "Jauntin\\CyberSource\\Tests\\": "tests"
     }
-  },
-  "scripts": {
-    "test": "vendor/bin/phpunit",
-    "analyze": "vendor/bin/phpcs && vendor/bin/phpstan analyse --memory-limit=1G",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
   },
   "config": {
     "sort-packages": true
