@@ -2,15 +2,16 @@
 
 namespace Jauntin\CyberSource\Tests\Unit\Api\Internal;
 
-use Jauntin\CyberSource\Api\PaymentRequest;
 use Jauntin\CyberSource\Api\Internal\PaymentRequestAdapter;
-use Mockery\MockInterface;
+use Jauntin\CyberSource\Api\PaymentRequest;
 use Jauntin\CyberSource\Tests\TestCase;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class PaymentRequestAdapterTest extends TestCase
 {
     private PaymentRequest $paymentRequest;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -26,6 +27,7 @@ class PaymentRequestAdapterTest extends TestCase
     {
         $fn($this, (new PaymentRequestAdapter($testDecline, $testInvalidData))->fromPaymentRequest($this->paymentRequest, $testDecline, $testInvalidData));
     }
+
     public static function fromPaymentRequestDataProvider(): array
     {
         return [

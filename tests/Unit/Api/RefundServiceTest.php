@@ -19,11 +19,17 @@ use Mockery\MockInterface;
 class RefundServiceTest extends TestCase
 {
     private array $body;
+
     private array $response;
+
     private MockInterface|RefundRequest $refundRequest;
+
     private MockInterface|RefundRequestAdapter $refundRequestAdapter;
+
     private MockInterface|RefundResponse $refundResponse;
+
     private MockInterface|RefundResponseAdapter $refundResponseAdapter;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -41,6 +47,7 @@ class RefundServiceTest extends TestCase
                 ->andReturn(['header' => 'a']);
         });
     }
+
     public function testRefund()
     {
         Http::fake(['*' => Http::response($this->response)]);

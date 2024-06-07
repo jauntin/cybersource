@@ -3,8 +3,8 @@
 namespace Jauntin\CyberSource\Tests\Unit\Api\Internal;
 
 use Illuminate\Support\Facades\App;
-use Jauntin\CyberSource\Api\PaymentResponse;
 use Jauntin\CyberSource\Api\Internal\PaymentResponseAdapter;
+use Jauntin\CyberSource\Api\PaymentResponse;
 use Jauntin\CyberSource\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -35,15 +35,15 @@ class PaymentResponseAdapterTest extends TestCase
                     'orderInformation' => [
                         'amountDetails' => [
                             'totalAmount' => 'totalAmount',
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ],
             'failureResponse' => [
                 [
                     'id' => 'id',
                     'status' => 'status',
-                ]
+                ],
             ],
         ];
     }

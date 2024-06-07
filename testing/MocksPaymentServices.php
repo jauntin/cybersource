@@ -16,7 +16,9 @@ use Mockery\MockInterface;
 trait MocksPaymentServices
 {
     protected MockInterface|PaymentService $paymentService;
+
     protected MockInterface|RefundService $refundService;
+
     protected MockInterface|KeyService $keyService;
 
     protected function mockPaymentServices(): void
@@ -80,6 +82,7 @@ trait MocksPaymentServices
                 $response->$k = $k;
             }
         }
+
         return $response;
     }
 }

@@ -27,6 +27,6 @@ abstract class TestCase extends Base
 
     protected function testConfig(): array
     {
-        return ['cybersource' => include(realpath(__DIR__ . '/../config/config.php'))];
+        return ['cybersource' => include (realpath(__DIR__.'/../config/config.php'))];
     }
 }

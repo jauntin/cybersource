@@ -8,13 +8,21 @@ namespace Jauntin\CyberSource\Api;
 class PaymentStatus
 {
     public const STATUS_AUTHORIZED = 'AUTHORIZED';
+
     public const STATUS_AUTHORIZED_PENDING_REVIEW = 'AUTHORIZED_PENDING_REVIEW';
+
     public const STATUS_AUTHORIZED_RISK_DECLINED = 'AUTHORIZED_RISK_DECLINED';
+
     public const STATUS_DECLINED = 'DECLINED';
+
     public const STATUS_PARTIAL_AUTHORIZED = 'PARTIAL_AUTHORIZED';
+
     public const STATUS_INVALID_REQUEST = 'INVALID_REQUEST';
+
     public const STATUS_PENDING_AUTHENTICATION = 'PENDING_AUTHENTICATION';
+
     public const STATUS_PENDING = 'PENDING';
+
     public const STATUS_SERVER_ERROR = 'SERVER_ERROR';
 
     public const SUCCESSFUL_STATUS_VALUES = [

@@ -6,6 +6,7 @@ use Jauntin\CyberSource\Api\RefundResponse;
 
 /**
  * @final
+ *
  * @internal
  */
 class RefundResponseAdapter
@@ -28,6 +29,7 @@ class RefundResponseAdapter
         $refundResponse->reconciliationId = $r->reconciliationId ?? '';
         $refundResponse->refundAmount = $r->refundAmountDetails->refundAmount ?? '';
         $refundResponse->remoteResponse = $response;
+
         return $refundResponse;
     }
 }

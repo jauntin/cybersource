@@ -12,15 +12,19 @@ use Jauntin\CyberSource\Api\Internal\RequestHeaders;
 use Jauntin\CyberSource\Api\KeyRequest;
 use Jauntin\CyberSource\Api\KeyResponse;
 use Jauntin\CyberSource\Api\KeyService;
-use Mockery\MockInterface;
 use Jauntin\CyberSource\Tests\TestCase;
+use Mockery\MockInterface;
 
 class KeyServiceTest extends TestCase
 {
     private array $response;
+
     private MockInterface|KeyRequest $keyRequest;
+
     private MockInterface|KeyResponse $keyResponse;
+
     private MockInterface|KeyResponseAdapter $keyResponseAdapter;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,6 +39,7 @@ class KeyServiceTest extends TestCase
                 ->andReturn(['header' => 'a']);
         });
     }
+
     public function testGenerateKeyReturnsResponse()
     {
         Http::fake(['*' => Http::response($this->response)]);

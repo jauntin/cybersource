@@ -28,26 +28,28 @@ class RefundService
     {
         $logKey = sprintf('cybersource.refund %s, %s: ', $refundRequest->referenceNumber, $refundRequest->paymentRequestId);
         try {
-            Log::info($logKey . 'Begin request');
+            Log::info($logKey.'Begin request');
             $resourcePath = sprintf('/pts/v2/payments/%s/refunds', $refundRequest->paymentRequestId);
             $body = json_encode($this->refundRequestAdapter->fromRefundRequest($refundRequest), JSON_THROW_ON_ERROR);
             $request = Http::withHeaders($this->requestHeaders->generate($resourcePath, RequestHeaders::METHOD_POST, $body));
             $request->withBody($body);
-            $response = $request->post('https://' . $this->configuration->host . $resourcePath);
+            $response = $request->post('https://'.$this->configuration->host.$resourcePath);
             if ($response->successful()) {
-                Log::info($logKey . 'Request successful');
+                Log::info($logKey.'Request successful');
             } else {
-                Log::info($logKey . 'Request failed', [
+                Log::info($logKey.'Request failed', [
                     'request' => (array) $refundRequest,
-                    'response' => ['status' => $response->status(), 'body' => $response->body()]
+                    'response' => ['status' => $response->status(), 'body' => $response->body()],
                 ]);
             }
+
             return $this->refundResponseAdapter->fromResponse($response->json());
         } catch (Throwable $e) {
-            Log::error($logKey . 'Request failed', [
+            Log::error($logKey.'Request failed', [
                 'request' => (array) $refundRequest,
                 'error' => ['message' => $e->getMessage()],
             ]);
+
             return App::make(ErrorResponse::class)->fromThrowable($e);
         }
     }
