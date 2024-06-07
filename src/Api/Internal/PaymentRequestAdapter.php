@@ -6,6 +6,7 @@ use Jauntin\CyberSource\Api\PaymentRequest;
 
 /**
  * @final
+ *
  * @internal
  */
 class PaymentRequestAdapter
@@ -28,36 +29,35 @@ class PaymentRequestAdapter
     {
         return [
             'clientReferenceInformation' => [
-                "code" => $paymentRequest->referenceNumber,
+                'code' => $paymentRequest->referenceNumber,
             ],
             'processingInformation' => [
-                "capture" => true,
-                "commerceIndicator" => "internet"
+                'capture' => true,
+                'commerceIndicator' => 'internet',
             ],
-            'paymentInformation' =>
-            array_merge(
-                $this->testDecline ? ["card" => ['number' => '42423482938483873']] : [],
-                $this->testInvalidData ? ["card" => ['expirationMonth' => '13']] : [],
+            'paymentInformation' => array_merge(
+                $this->testDecline ? ['card' => ['number' => '42423482938483873']] : [],
+                $this->testInvalidData ? ['card' => ['expirationMonth' => '13']] : [],
                 [
-                    "customer" => [
-                        "customerId" => $paymentRequest->creditCardToken
-                    ]
+                    'customer' => [
+                        'customerId' => $paymentRequest->creditCardToken,
+                    ],
                 ]
             ),
             'orderInformation' => [
-                "amountDetails" => [
-                    "totalAmount" => $paymentRequest->totalAmount,
-                    "currency" => $paymentRequest->currency
+                'amountDetails' => [
+                    'totalAmount' => $paymentRequest->totalAmount,
+                    'currency' => $paymentRequest->currency,
                 ],
-                "billTo" => [
-                    "firstName" => $paymentRequest->firstName,
-                    "lastName" => $paymentRequest->lastName,
-                    "company" => $paymentRequest->companyName,
-                    "address1" => $paymentRequest->address1,
-                    "locality" => $paymentRequest->city,
-                    "administrativeArea" => $paymentRequest->state,
-                    "postalCode" => $paymentRequest->zip,
-                    "country" => $paymentRequest->country,
+                'billTo' => [
+                    'firstName' => $paymentRequest->firstName,
+                    'lastName' => $paymentRequest->lastName,
+                    'company' => $paymentRequest->companyName,
+                    'address1' => $paymentRequest->address1,
+                    'locality' => $paymentRequest->city,
+                    'administrativeArea' => $paymentRequest->state,
+                    'postalCode' => $paymentRequest->zip,
+                    'country' => $paymentRequest->country,
                 ],
             ],
         ];

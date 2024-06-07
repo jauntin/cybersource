@@ -19,10 +19,15 @@ use Mockery\MockInterface;
 class PaymentServiceTest extends TestCase
 {
     private array $body;
+
     private array $response;
+
     private MockInterface|PaymentRequest $paymentRequest;
+
     private MockInterface|PaymentRequestAdapter $paymentRequestAdapter;
+
     private MockInterface|PaymentResponse $paymentResponse;
+
     private MockInterface|PaymentResponseAdapter $paymentResponseAdapter;
 
     protected function setUp(): void
@@ -41,6 +46,7 @@ class PaymentServiceTest extends TestCase
                 ->andReturn(['header' => 'a']);
         });
     }
+
     public function testPay()
     {
         Http::fake(['*' => Http::response($this->response)]);

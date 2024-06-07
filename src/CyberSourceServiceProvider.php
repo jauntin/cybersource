@@ -13,7 +13,7 @@ final class CyberSourceServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/config.php' => config_path('cybersource.php'),
+                __DIR__.'/../config/config.php' => config_path('cybersource.php'),
             ], 'config');
         }
     }
@@ -23,7 +23,7 @@ final class CyberSourceServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'cybersource');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'cybersource');
 
         $this->app->bind(PaymentRequestAdapter::class, fn () => new PaymentRequestAdapter(
             testDecline: Config::get('cybersource.test.payment.decline'),

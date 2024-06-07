@@ -11,10 +11,12 @@ class PaymentStatusTest extends TestCase
     {
         $this->assertTrue(PaymentStatus::isSuccessful(PaymentStatus::STATUS_AUTHORIZED));
     }
+
     public function testIsUnsuccessful()
     {
         $this->assertTrue(PaymentStatus::isUnsuccessful(PaymentStatus::STATUS_AUTHORIZED_PENDING_REVIEW));
     }
+
     public function testIsError()
     {
         $this->assertTrue(PaymentStatus::isError(PaymentStatus::STATUS_INVALID_REQUEST));

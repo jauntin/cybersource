@@ -8,10 +8,15 @@ namespace Jauntin\CyberSource\Api;
 class RefundResponse
 {
     public string $id;
+
     public string $status;
+
     public string $orderReferenceNumber;
+
     public string $reconciliationId;
+
     public string $refundAmount;
+
     /**
      * @var mixed[]
      */

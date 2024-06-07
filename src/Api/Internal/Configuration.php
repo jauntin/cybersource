@@ -8,13 +8,17 @@ namespace Jauntin\CyberSource\Api\Internal;
 
 /**
  * @final
+ *
  * @internal
  */
 class Configuration
 {
     public readonly string $host;
+
     public readonly string $merchantId;
+
     public readonly string $apiKeyId;
+
     public readonly string $secretKey;
 
     public function __construct()

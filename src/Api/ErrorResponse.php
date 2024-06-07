@@ -10,7 +10,9 @@ use Throwable;
 class ErrorResponse
 {
     public string $message;
+
     public int $statusCode;
+
     public Throwable $previous;
 
     public function fromThrowable(Throwable $e): self
@@ -18,6 +20,7 @@ class ErrorResponse
         $this->message = $e->getMessage();
         $this->statusCode = $e->getCode();
         $this->previous = $e;
+
         return $this;
     }
 }

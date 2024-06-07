@@ -6,6 +6,7 @@ use Jauntin\CyberSource\Api\PaymentResponse;
 
 /**
  * @final
+ *
  * @internal
  */
 class PaymentResponseAdapter
@@ -30,6 +31,7 @@ class PaymentResponseAdapter
         $paymentResponse->approvalCode = $r->processorInformation->approvalCode ?? null;
         $paymentResponse->amount = $r->orderInformation->amountDetails->totalAmount ?? null;
         $paymentResponse->remoteResponse = $response;
+
         return $paymentResponse;
     }
 }

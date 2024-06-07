@@ -2,15 +2,16 @@
 
 namespace Jauntin\CyberSource\Tests\Unit\Api\Internal;
 
-use Jauntin\CyberSource\Api\RefundRequest;
 use Jauntin\CyberSource\Api\Internal\RefundRequestAdapter;
-use Mockery\MockInterface;
+use Jauntin\CyberSource\Api\RefundRequest;
 use Jauntin\CyberSource\Tests\TestCase;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class RefundRequestAdapterTest extends TestCase
 {
     private RefundRequest $refundRequest;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -20,11 +21,13 @@ class RefundRequestAdapterTest extends TestCase
             }
         });
     }
+
     #[DataProvider('fromRefundRequestDataProvider')]
     public function testFromRefundRequest($testInvalidData, $fn)
     {
         $fn($this, (new RefundRequestAdapter($testInvalidData))->fromRefundRequest($this->refundRequest, $testInvalidData));
     }
+
     public static function fromRefundRequestDataProvider(): array
     {
         return [

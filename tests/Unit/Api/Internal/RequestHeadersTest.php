@@ -20,6 +20,7 @@ class RequestHeadersTest extends TestCase
         $this->travelTo('2023-11-20 12:11:11');
         $this->assertMatchesSnapshot(App::make(RequestHeaders::class)->generate('resourcePath', $method, $payload));
     }
+
     public static function headerOutputDataProvider()
     {
         return [
