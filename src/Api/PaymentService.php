@@ -21,8 +21,7 @@ class PaymentService
         private PaymentRequestAdapter $paymentRequestAdapter,
         private RequestHeaders $requestHeaders,
         private Configuration $configuration,
-    ) {
-    }
+    ) {}
 
     public function pay(PaymentRequest $paymentRequest): PaymentResponse|ErrorResponse
     {

@@ -21,7 +21,7 @@ class RefundResponseAdapter
      */
     public function fromResponse(array $response): RefundResponse
     {
-        $refundResponse = new RefundResponse();
+        $refundResponse = new RefundResponse;
         $r = json_decode(json_encode($response, JSON_THROW_ON_ERROR), false);
         $refundResponse->id = $r->id ?? '';
         $refundResponse->status = $r->status ?? '';

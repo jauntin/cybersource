@@ -22,7 +22,7 @@ class PaymentResponseAdapter
      */
     public function fromResponse(array $response): PaymentResponse
     {
-        $paymentResponse = new PaymentResponse();
+        $paymentResponse = new PaymentResponse;
         $r = json_decode(json_encode($response, JSON_THROW_ON_ERROR), false);
         $paymentResponse->id = $r->id ?? '';
         $paymentResponse->status = $r->status ?? '';

@@ -21,8 +21,7 @@ class RefundService
         private RefundRequestAdapter $refundRequestAdapter,
         private RequestHeaders $requestHeaders,
         private Configuration $configuration,
-    ) {
-    }
+    ) {}
 
     public function refund(RefundRequest $refundRequest): RefundResponse|ErrorResponse
     {

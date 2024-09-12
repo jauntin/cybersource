@@ -16,7 +16,7 @@ class KeyResponseAdapter
      */
     public function fromResponse(array $response): KeyResponse
     {
-        $keyResponse = new KeyResponse();
+        $keyResponse = new KeyResponse;
         $response = (object) $response;
         $keyResponse->keyId = $response->keyId;
 

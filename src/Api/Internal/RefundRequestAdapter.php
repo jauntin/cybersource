@@ -11,9 +11,7 @@ use Jauntin\CyberSource\Api\RefundRequest;
  */
 class RefundRequestAdapter
 {
-    public function __construct(private bool $testInvalidData = false)
-    {
-    }
+    public function __construct(private bool $testInvalidData = false) {}
 
     /**
      * @return array{'clientReferenceInformation': array{'code': string}, 'orderInformation': array{'amountDetails': array{'totalAmount': string, 'currency': string}}, 'paymentInformation'?: array{'card': array{'expirationMonth': string }}}

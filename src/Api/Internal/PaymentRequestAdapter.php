@@ -14,8 +14,7 @@ class PaymentRequestAdapter
     public function __construct(
         private bool $testDecline = false,
         private bool $testInvalidData = false
-    ) {
-    }
+    ) {}
 
     /**
      * @return array{

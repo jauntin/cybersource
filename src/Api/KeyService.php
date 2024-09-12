@@ -19,8 +19,7 @@ class KeyService
         private KeyResponseAdapter $keyResponseAdapter,
         private RequestHeaders $requestHeaders,
         private Configuration $configuration,
-    ) {
-    }
+    ) {}
 
     public function generateKey(KeyRequest $keyRequest): KeyResponse|ErrorResponse
     {

@@ -45,12 +45,12 @@ trait MocksPaymentServices
 
     protected function paymentServiceSuccessfulResponse(array $values = []): PaymentResponse
     {
-        return $this->responseAutomapper(new PaymentResponse(), array_merge(['status' => PaymentStatus::STATUS_AUTHORIZED, 'remoteResponse' => ['remoteResponse']], $values));
+        return $this->responseAutomapper(new PaymentResponse, array_merge(['status' => PaymentStatus::STATUS_AUTHORIZED, 'remoteResponse' => ['remoteResponse']], $values));
     }
 
     protected function paymentServiceUnsuccessfulResponse(array $values = []): PaymentResponse
     {
-        return $this->responseAutomapper(new PaymentResponse(), array_merge(['status' => PaymentStatus::STATUS_DECLINED, 'remoteResponse' => ['remoteResponse']], $values));
+        return $this->responseAutomapper(new PaymentResponse, array_merge(['status' => PaymentStatus::STATUS_DECLINED, 'remoteResponse' => ['remoteResponse']], $values));
     }
 
     protected function mockSuccessfulRefund(): void
@@ -65,12 +65,12 @@ trait MocksPaymentServices
 
     protected function refundServiceSuccessfulResponse(array $values = []): RefundResponse
     {
-        return $this->responseAutomapper(new RefundResponse(), array_merge(['status' => RefundStatus::STATUS_PENDING, 'remoteResponse' => ['remoteResponse']], $values));
+        return $this->responseAutomapper(new RefundResponse, array_merge(['status' => RefundStatus::STATUS_PENDING, 'remoteResponse' => ['remoteResponse']], $values));
     }
 
     protected function errorResponse(array $values = []): ErrorResponse
     {
-        return $this->responseAutomapper(new ErrorResponse(), array_merge(['statusCode' => 400, 'previous' => new \Exception()], $values));
+        return $this->responseAutomapper(new ErrorResponse, array_merge(['statusCode' => 400, 'previous' => new \Exception], $values));
     }
 
     private function responseAutomapper($response, array $values): PaymentResponse|RefundResponse|KeyResponse|ErrorResponse

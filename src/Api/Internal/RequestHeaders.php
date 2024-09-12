@@ -13,9 +13,7 @@ class RequestHeaders
 
     public const METHOD_POST = 'post';
 
-    public function __construct(private Configuration $configuration)
-    {
-    }
+    public function __construct(private Configuration $configuration) {}
 
     /**
      * @return array<string, mixed>
