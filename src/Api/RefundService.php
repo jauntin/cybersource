@@ -23,13 +23,13 @@ class RefundService
         private Configuration $configuration,
     ) {}
 
-    public function refund(RefundRequest $refundRequest): RefundResponse|ErrorResponse
+    public function refund(RefundRequest $refundRequest, bool $testInvalidData = false): RefundResponse|ErrorResponse
     {
         $logKey = sprintf('cybersource.refund %s, %s: ', $refundRequest->referenceNumber, $refundRequest->paymentRequestId);
         try {
             Log::info($logKey.'Begin request');
             $resourcePath = sprintf('/pts/v2/payments/%s/refunds', $refundRequest->paymentRequestId);
-            $body = json_encode($this->refundRequestAdapter->fromRefundRequest($refundRequest), JSON_THROW_ON_ERROR);
+            $body = json_encode($this->refundRequestAdapter->fromRefundRequest($refundRequest, $testInvalidData), JSON_THROW_ON_ERROR);
             $request = Http::withHeaders($this->requestHeaders->generate($resourcePath, RequestHeaders::METHOD_POST, $body));
             $request->withBody($body);
             $response = $request->post('https://'.$this->configuration->host.$resourcePath);

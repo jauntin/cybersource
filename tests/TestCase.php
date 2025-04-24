@@ -18,14 +18,14 @@ abstract class TestCase extends Base
         Http::preventStrayRequests();
     }
 
-    protected function setTestConfig(): void
+    private function setTestConfig(): void
     {
-        foreach ($this->testConfig() as $key => $value) {
+        foreach ($this->config() as $key => $value) {
             Config::set($key, $value);
         }
     }
 
-    protected function testConfig(): array
+    private function config(): array
     {
         return ['cybersource' => include (realpath(__DIR__.'/../config/config.php'))];
     }

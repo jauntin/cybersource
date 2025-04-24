@@ -9,7 +9,7 @@ use Jauntin\CyberSource\Tests\TestCase;
 
 class ErrorResponseTest extends TestCase
 {
-    public function testFromThrowable()
+    public function test_from_throwable()
     {
         $e = new Exception('a', 1);
         /** @var ErrorResponse */

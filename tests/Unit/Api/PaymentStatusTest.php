@@ -7,17 +7,17 @@ use Jauntin\CyberSource\Tests\TestCase;
 
 class PaymentStatusTest extends TestCase
 {
-    public function testIsSuccessful()
+    public function test_is_successful()
     {
         $this->assertTrue(PaymentStatus::isSuccessful(PaymentStatus::STATUS_AUTHORIZED));
     }
 
-    public function testIsUnsuccessful()
+    public function test_is_unsuccessful()
     {
         $this->assertTrue(PaymentStatus::isUnsuccessful(PaymentStatus::STATUS_AUTHORIZED_PENDING_REVIEW));
     }
 
-    public function testIsError()
+    public function test_is_error()
     {
         $this->assertTrue(PaymentStatus::isError(PaymentStatus::STATUS_INVALID_REQUEST));
     }

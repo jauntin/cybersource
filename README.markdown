@@ -13,7 +13,4 @@ Provides some basic Cybersource payment management for use by Jauntin
 ## Testing
 
 - Helpers for mocking payment services are located in the `testing` directory.
-- See `config` for environment variables that will trigger unsuccessful requests in the staging environment. Setting any of these to true will send invalid data to cybersource, and allow manual testers to see how your application responds to failed requests.
-  - CS_TEST_PAYMENT_DECLINE
-  - CS_TEST_PAYMENT_INVALID_DATA
-  - CS_TEST_REFUND_INVALID_DATA
+- To send test failures, use `PaymentServce::pay testDecline, testInvalidData` and `RefundService::refund testInvalidData` when calling from an app.

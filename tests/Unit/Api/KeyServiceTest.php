@@ -40,14 +40,14 @@ class KeyServiceTest extends TestCase
         });
     }
 
-    public function testGenerateKeyReturnsResponse()
+    public function test_generate_key_returns_response()
     {
         Http::fake(['*' => Http::response($this->response)]);
         $this->keyResponseAdapter->shouldReceive('fromResponse')->with($this->response)->andReturn($this->keyResponse);
         $this->assertEquals($this->keyResponse, App::make(KeyService::class)->generateKey($this->keyRequest));
     }
 
-    public function testGenerateKeyFailedRequestErrorResponse()
+    public function test_generate_key_failed_request_error_response()
     {
         Http::fake(['*' => Http::response($this->response, 400)]);
         $keyResponse = App::make(KeyService::class)->generateKey($this->keyRequest);
@@ -56,7 +56,7 @@ class KeyServiceTest extends TestCase
         $this->assertEquals(400, $keyResponse->statusCode);
     }
 
-    public function testGenerateKeyThrowableErrorResponse()
+    public function test_generate_key_throwable_error_response()
     {
         Http::fake(['*' => fn ($request) => new RejectedPromise(new ConnectException('Foo', $request->toPsrRequest()))]);
         $errorResponse = $this->mock(ErrorResponse::class, function (MockInterface $mock) {

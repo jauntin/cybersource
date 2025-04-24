@@ -48,23 +48,23 @@ class RefundServiceTest extends TestCase
         });
     }
 
-    public function testRefund()
+    public function test_refund()
     {
         Http::fake(['*' => Http::response($this->response)]);
-        $this->refundRequestAdapter->shouldReceive('fromRefundRequest')->with($this->refundRequest)->andReturn($this->body);
+        $this->refundRequestAdapter->shouldReceive('fromRefundRequest')->with($this->refundRequest, false)->andReturn($this->body);
         $this->refundResponseAdapter->shouldReceive('fromResponse')->with($this->response)->andReturn($this->refundResponse);
         $this->assertEquals($this->refundResponse, App::make(RefundService::class)->refund($this->refundRequest));
     }
 
-    public function testRefundFailedRequestErrorResponse()
+    public function test_refund_failed_request_error_response()
     {
         Http::fake(['*' => Http::response(['response' => 'response'], 400)]);
-        $this->refundRequestAdapter->shouldReceive('fromRefundRequest')->with($this->refundRequest)->andReturn($this->body);
+        $this->refundRequestAdapter->shouldReceive('fromRefundRequest')->with($this->refundRequest, false)->andReturn($this->body);
         $this->refundResponseAdapter->shouldReceive('fromResponse')->with($this->response)->andReturn($this->refundResponse);
         $this->assertEquals($this->refundResponse, App::make(RefundService::class)->refund($this->refundRequest));
     }
 
-    public function testRefundThrowableErrorResponse()
+    public function test_refund_throwable_error_response()
     {
         Http::fake(['*' => fn ($request) => new RejectedPromise(new ConnectException('Foo', $request->toPsrRequest()))]);
         $errorResponse = $this->mock(ErrorResponse::class, function (MockInterface $mock) {

@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class RefundRequestAdapterTest extends TestCase
 {
-    private RefundRequest $refundRequest;
+    private RefundRequest&MockInterface $refundRequest;
 
     protected function setUp(): void
     {
@@ -23,7 +23,7 @@ class RefundRequestAdapterTest extends TestCase
     }
 
     #[DataProvider('fromRefundRequestDataProvider')]
-    public function testFromRefundRequest($testInvalidData, $fn)
+    public function test_from_refund_request($testInvalidData, $fn)
     {
         $fn($this, (new RefundRequestAdapter($testInvalidData))->fromRefundRequest($this->refundRequest, $testInvalidData));
     }

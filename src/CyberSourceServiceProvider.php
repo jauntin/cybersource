@@ -2,10 +2,7 @@
 
 namespace Jauntin\CyberSource;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use Jauntin\CyberSource\Api\Internal\PaymentRequestAdapter;
-use Jauntin\CyberSource\Api\Internal\RefundRequestAdapter;
 
 final class CyberSourceServiceProvider extends ServiceProvider
 {
@@ -24,11 +21,5 @@ final class CyberSourceServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'cybersource');
-
-        $this->app->bind(PaymentRequestAdapter::class, fn () => new PaymentRequestAdapter(
-            testDecline: Config::get('cybersource.test.payment.decline'),
-            testInvalidData: Config::get('cybersource.test.payment.invalid_data')
-        ));
-        $this->app->bind(RefundRequestAdapter::class, fn () => new RefundRequestAdapter(testInvalidData: Config::get('cybersource.test.refund.invalid_data')));
     }
 }

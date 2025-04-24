@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 class PaymentResponseAdapterTest extends TestCase
 {
     #[DataProvider('fromResponseDataProvider')]
-    public function testFromResponse($cybersourceResponse)
+    public function test_from_response($cybersourceResponse)
     {
         $result = App::make(PaymentResponseAdapter::class)->fromResponse($cybersourceResponse);
         $this->assertInstanceOf(PaymentResponse::class, $result);
