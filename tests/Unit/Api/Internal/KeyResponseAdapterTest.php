@@ -8,7 +8,7 @@ use Jauntin\CyberSource\Tests\TestCase;
 
 class KeyResponseAdapterTest extends TestCase
 {
-    public function testFromResponse()
+    public function test_from_response()
     {
         $input = ['keyId' => 'keyId'];
         $this->assertEquals($input, (array) App::make(KeyResponseAdapter::class)->fromResponse($input));

@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 class PaymentRequestAdapterTest extends TestCase
 {
-    private PaymentRequest $paymentRequest;
+    private PaymentRequest&MockInterface $paymentRequest;
 
     protected function setUp(): void
     {
@@ -23,7 +23,7 @@ class PaymentRequestAdapterTest extends TestCase
     }
 
     #[DataProvider('fromPaymentRequestDataProvider')]
-    public function testFromPaymentRequest($testDecline, $testInvalidData, $fn)
+    public function test_from_payment_request($testDecline, $testInvalidData, $fn)
     {
         $fn($this, (new PaymentRequestAdapter($testDecline, $testInvalidData))->fromPaymentRequest($this->paymentRequest, $testDecline, $testInvalidData));
     }

@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 class RequestHeadersTest extends TestCase
 {
     #[DataProvider('headerOutputDataProvider')]
-    public function testHeaderOutput($method, $payload)
+    public function test_header_output($method, $payload)
     {
         Config::set('cybersource.run_env', 'jauntin.com');
         Config::set('cybersource.merchant_id', 'jauntin');

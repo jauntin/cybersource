@@ -8,7 +8,7 @@ use Jauntin\CyberSource\Tests\TestCase;
 
 class RefundResponseAdapterTest extends TestCase
 {
-    public function testFromResponse()
+    public function test_from_response()
     {
         $this->assertMatchesSnapshot(App::make(RefundResponseAdapter::class)->fromResponse([
             'id' => 'id',

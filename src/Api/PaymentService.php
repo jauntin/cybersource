@@ -23,13 +23,16 @@ class PaymentService
         private Configuration $configuration,
     ) {}
 
-    public function pay(PaymentRequest $paymentRequest): PaymentResponse|ErrorResponse
-    {
+    public function pay(
+        PaymentRequest $paymentRequest,
+        bool $testDecline = false,
+        bool $testInvalidData = false
+    ): PaymentResponse|ErrorResponse {
         $logKey = sprintf('cybersource.pay %s: ', $paymentRequest->referenceNumber);
         try {
             Log::info($logKey.'Begin request');
             $resourcePath = '/pts/v2/payments';
-            $body = json_encode($this->paymentRequestAdapter->fromPaymentRequest($paymentRequest), JSON_THROW_ON_ERROR);
+            $body = json_encode($this->paymentRequestAdapter->fromPaymentRequest($paymentRequest, $testDecline, $testInvalidData), JSON_THROW_ON_ERROR);
             $request = Http::withHeaders($this->requestHeaders->generate($resourcePath, RequestHeaders::METHOD_POST, $body));
             $request->withBody($body);
             $response = $request->post('https://'.$this->configuration->host.$resourcePath);

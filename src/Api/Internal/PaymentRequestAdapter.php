@@ -11,11 +11,6 @@ use Jauntin\CyberSource\Api\PaymentRequest;
  */
 class PaymentRequestAdapter
 {
-    public function __construct(
-        private bool $testDecline = false,
-        private bool $testInvalidData = false
-    ) {}
-
     /**
      * @return array{
      *   'clientReferenceInformation': array{'code': string},
@@ -24,7 +19,7 @@ class PaymentRequestAdapter
      *   'orderInformation': array{'amountDetails': array{'totalAmount': string, 'currency': string}, 'billTo': array{'firstName': string, 'lastName': string, 'company': string, 'address1': string, 'locality': string, 'administrativeArea': string, 'postalCode': string, 'country': string}}
      * }
      */
-    public function fromPaymentRequest(PaymentRequest $paymentRequest): array
+    public function fromPaymentRequest(PaymentRequest $paymentRequest, bool $testDecline = false, bool $testInvalidData = false): array
     {
         return [
             'clientReferenceInformation' => [
@@ -35,8 +30,8 @@ class PaymentRequestAdapter
                 'commerceIndicator' => 'internet',
             ],
             'paymentInformation' => array_merge(
-                $this->testDecline ? ['card' => ['number' => '42423482938483873']] : [],
-                $this->testInvalidData ? ['card' => ['expirationMonth' => '13']] : [],
+                $testDecline ? ['card' => ['number' => '42423482938483873']] : [],
+                $testInvalidData ? ['card' => ['expirationMonth' => '13']] : [],
                 [
                     'customer' => [
                         'customerId' => $paymentRequest->creditCardToken,

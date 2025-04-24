@@ -11,12 +11,10 @@ use Jauntin\CyberSource\Api\RefundRequest;
  */
 class RefundRequestAdapter
 {
-    public function __construct(private bool $testInvalidData = false) {}
-
     /**
      * @return array{'clientReferenceInformation': array{'code': string}, 'orderInformation': array{'amountDetails': array{'totalAmount': string, 'currency': string}}, 'paymentInformation'?: array{'card': array{'expirationMonth': string }}}
      */
-    public function fromRefundRequest(RefundRequest $refundRequest): array
+    public function fromRefundRequest(RefundRequest $refundRequest, bool $testInvalidData = false): array
     {
         $request = [
             'clientReferenceInformation' => [
@@ -29,7 +27,7 @@ class RefundRequestAdapter
                 ],
             ],
         ];
-        if ($this->testInvalidData) {
+        if ($testInvalidData) {
             $request['paymentInformation'] = [
                 'card' => [
                     'expirationMonth' => '13',

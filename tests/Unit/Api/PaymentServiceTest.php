@@ -47,23 +47,23 @@ class PaymentServiceTest extends TestCase
         });
     }
 
-    public function testPay()
+    public function test_pay()
     {
         Http::fake(['*' => Http::response($this->response)]);
-        $this->paymentRequestAdapter->shouldReceive('fromPaymentRequest')->with($this->paymentRequest)->andReturn($this->body);
+        $this->paymentRequestAdapter->shouldReceive('fromPaymentRequest')->with($this->paymentRequest, false, false)->andReturn($this->body);
         $this->paymentResponseAdapter->shouldReceive('fromResponse')->with($this->response)->andReturn($this->paymentResponse);
         $this->assertEquals($this->paymentResponse, App::make(PaymentService::class)->pay($this->paymentRequest));
     }
 
-    public function testPayFailedRequestErrorResponse()
+    public function test_pay_failed_request_error_response()
     {
         Http::fake(['*' => Http::response(['response' => 'response'], 400)]);
-        $this->paymentRequestAdapter->shouldReceive('fromPaymentRequest')->with($this->paymentRequest)->andReturn($this->body);
+        $this->paymentRequestAdapter->shouldReceive('fromPaymentRequest')->with($this->paymentRequest, false, false)->andReturn($this->body);
         $this->paymentResponseAdapter->shouldReceive('fromResponse')->with($this->response)->andReturn($this->paymentResponse);
         $this->assertEquals($this->paymentResponse, App::make(PaymentService::class)->pay($this->paymentRequest));
     }
 
-    public function testPayThrowableErrorResponse()
+    public function test_pay_throwable_error_response()
     {
         Http::fake(['*' => fn ($request) => new RejectedPromise(new ConnectException('Foo', $request->toPsrRequest()))]);
         $errorResponse = $this->mock(ErrorResponse::class, function (MockInterface $mock) {
