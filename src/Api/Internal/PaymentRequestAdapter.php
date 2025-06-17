@@ -21,15 +21,9 @@ class PaymentRequestAdapter
      */
     public function fromPaymentRequest(PaymentRequest $paymentRequest, bool $testDecline = false, bool $testInvalidData = false): array
     {
-        return [
-            'clientReferenceInformation' => [
-                'code' => $paymentRequest->referenceNumber,
-            ],
-            'processingInformation' => [
-                'capture' => true,
-                'commerceIndicator' => 'internet',
-            ],
-            'paymentInformation' => array_merge(
+        $request = [];
+        if (isset($paymentRequest->creditCardToken)) {
+            $request['paymentInformation'] = array_merge(
                 $testDecline ? ['card' => ['number' => '42423482938483873']] : [],
                 $testInvalidData ? ['card' => ['expirationMonth' => '13']] : [],
                 [
@@ -37,7 +31,22 @@ class PaymentRequestAdapter
                         'customerId' => $paymentRequest->creditCardToken,
                     ],
                 ]
-            ),
+            );
+        }
+        if (isset($paymentRequest->transientTokenJwt)) {
+            $request['tokenInformation'] = [
+                'transientTokenJwt' => $testDecline ? 'test' : $paymentRequest->transientTokenJwt,
+            ];
+        }
+
+        return array_merge($request, [
+            'clientReferenceInformation' => [
+                'code' => $paymentRequest->referenceNumber,
+            ],
+            'processingInformation' => [
+                'capture' => true,
+                'commerceIndicator' => 'internet',
+            ],
             'orderInformation' => [
                 'amountDetails' => [
                     'totalAmount' => $paymentRequest->totalAmount,
@@ -54,6 +63,6 @@ class PaymentRequestAdapter
                     'country' => $paymentRequest->country,
                 ],
             ],
-        ];
+        ]);
     }
 }
