@@ -13,10 +13,11 @@ class PaymentRequestAdapter
 {
     /**
      * @return array{
-     *   'clientReferenceInformation': array{'code': string},
-     *   'processingInformation': array{'capture': bool, 'commerceIndicator': string},
-     *   'paymentInformation': mixed,
-     *   'orderInformation': array{'amountDetails': array{'totalAmount': string, 'currency': string}, 'billTo': array{'firstName': string, 'lastName': string, 'company': string, 'address1': string, 'locality': string, 'administrativeArea': string, 'postalCode': string, 'country': string}}
+     *   clientReferenceInformation: array{'code': string},
+     *   processingInformation: array{'capture': bool, 'commerceIndicator': string},
+     *   orderInformation: array{'amountDetails': array{'totalAmount': string, 'currency': string}, 'billTo': array{'firstName': string, 'lastName': string, 'company': string, 'address1': string, 'locality': string, 'administrativeArea': string, 'postalCode': string, 'country': string}},
+     *   paymentInformation?: array<array-key, mixed>,
+     *   tokenInformation?: array{'transientTokenJwt': string},
      * }
      */
     public function fromPaymentRequest(PaymentRequest $paymentRequest, bool $testDecline = false, bool $testInvalidData = false): array
