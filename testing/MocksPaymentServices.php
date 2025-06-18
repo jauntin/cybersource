@@ -2,6 +2,7 @@
 
 namespace Jauntin\CyberSource\Testing;
 
+use Illuminate\Support\Carbon;
 use Jauntin\CyberSource\Api\ErrorResponse;
 use Jauntin\CyberSource\Api\KeyResponse;
 use Jauntin\CyberSource\Api\KeyService;
@@ -71,6 +72,15 @@ trait MocksPaymentServices
     protected function errorResponse(array $values = []): ErrorResponse
     {
         return $this->responseAutomapper(new ErrorResponse, array_merge(['statusCode' => 400, 'previous' => new \Exception], $values));
+    }
+
+    protected function getFakeValidToken(): string
+    {
+        return implode('.', [
+            base64_encode(json_encode([])),
+            base64_encode(json_encode(['exp' => Carbon::now()->addMinutes(10)->timestamp])),
+            'signature',
+        ]);
     }
 
     private function responseAutomapper($response, array $values): PaymentResponse|RefundResponse|KeyResponse|ErrorResponse
