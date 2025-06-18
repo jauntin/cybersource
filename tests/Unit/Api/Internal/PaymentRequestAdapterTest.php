@@ -24,7 +24,7 @@ class PaymentRequestAdapterTest extends TestCase
     public function test_from_payment_request_credit_card_token_normal()
     {
         unset($this->paymentRequest->transientTokenJwt);
-        $result = (new PaymentRequestAdapter())->fromPaymentRequest($this->paymentRequest);
+        $result = (new PaymentRequestAdapter)->fromPaymentRequest($this->paymentRequest);
         $this->assertArrayHasKey('paymentInformation', $result);
         $this->assertArrayNotHasKey('tokenInformation', $result);
         $this->assertEquals('creditCardToken', $result['paymentInformation']['customer']['customerId']);
@@ -34,7 +34,7 @@ class PaymentRequestAdapterTest extends TestCase
     public function test_from_payment_request_credit_card_token_decline()
     {
         unset($this->paymentRequest->transientTokenJwt);
-        $result = (new PaymentRequestAdapter())->fromPaymentRequest($this->paymentRequest, true);
+        $result = (new PaymentRequestAdapter)->fromPaymentRequest($this->paymentRequest, true);
         $this->assertEquals('42423482938483873', $result['paymentInformation']['card']['number']);
         $this->assertMatchesSnapshot($result);
     }
@@ -42,7 +42,7 @@ class PaymentRequestAdapterTest extends TestCase
     public function test_from_payment_request_credit_card_token_invalid_data()
     {
         unset($this->paymentRequest->transientTokenJwt);
-        $result = (new PaymentRequestAdapter())->fromPaymentRequest($this->paymentRequest, false, true);
+        $result = (new PaymentRequestAdapter)->fromPaymentRequest($this->paymentRequest, false, true);
         $this->assertEquals('13', $result['paymentInformation']['card']['expirationMonth']);
         $this->assertMatchesSnapshot($result);
     }
@@ -50,7 +50,7 @@ class PaymentRequestAdapterTest extends TestCase
     public function test_from_payment_request_with_transient_token_jwt_only()
     {
         unset($this->paymentRequest->creditCardToken);
-        $result = (new PaymentRequestAdapter())->fromPaymentRequest($this->paymentRequest);
+        $result = (new PaymentRequestAdapter)->fromPaymentRequest($this->paymentRequest);
         $this->assertArrayHasKey('tokenInformation', $result);
         $this->assertArrayNotHasKey('paymentInformation', $result);
         $this->assertEquals('transientTokenJwt', $result['tokenInformation']['transientTokenJwt']);
@@ -60,7 +60,7 @@ class PaymentRequestAdapterTest extends TestCase
     public function test_from_payment_request_with_transient_token_jwt_and_test_decline()
     {
         unset($this->paymentRequest->creditCardToken);
-        $result = (new PaymentRequestAdapter())->fromPaymentRequest($this->paymentRequest, true);
+        $result = (new PaymentRequestAdapter)->fromPaymentRequest($this->paymentRequest, true);
         $this->assertEquals('test', $result['tokenInformation']['transientTokenJwt']);
         $this->assertMatchesSnapshot($result);
     }
@@ -68,7 +68,7 @@ class PaymentRequestAdapterTest extends TestCase
     public function test_from_payment_request_with_transient_token_jwt_and_test_invalid_data()
     {
         unset($this->paymentRequest->creditCardToken);
-        $result = (new PaymentRequestAdapter())->fromPaymentRequest($this->paymentRequest, false, true);
+        $result = (new PaymentRequestAdapter)->fromPaymentRequest($this->paymentRequest, false, true);
         $this->assertEquals('test', $result['tokenInformation']['transientTokenJwt']);
         $this->assertMatchesSnapshot($result);
     }
