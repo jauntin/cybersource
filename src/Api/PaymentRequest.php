@@ -15,6 +15,8 @@ class PaymentRequest
 
     public string $creditCardToken;
 
+    public string $transientTokenJwt;
+
     public string $companyName;
 
     public string $address1;
