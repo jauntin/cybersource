@@ -1,13 +1,16 @@
 <?php
 
-namespace Tests\Unit\Api;
+namespace Tests\Unit\Rules;
 
 use Illuminate\Support\Carbon;
 use Jauntin\CyberSource\Rules\ValidTokenRule;
+use Jauntin\CyberSource\Testing\MocksPaymentServices;
 use PHPUnit\Framework\TestCase;
 
 class ValidTokenRuleTest extends TestCase
 {
+    use MocksPaymentServices;
+
     private function getRule(): ValidTokenRule
     {
         return new ValidTokenRule;
@@ -68,5 +71,16 @@ class ValidTokenRuleTest extends TestCase
             $result = false;
         });
         $this->assertTrue($result, 'Empty token should pass validation.');
+    }
+
+    public function test_fake_valid_token_passes()
+    {
+        $rule = $this->getRule();
+        $token = $this->getFakeValidToken();
+        $result = true;
+        $rule->validate('token', $token, function () use (&$result) {
+            $result = false;
+        });
+        $this->assertTrue($result, 'Confirming that the fake valid token passes validation.');
     }
 }
