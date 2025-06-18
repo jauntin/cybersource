@@ -36,7 +36,7 @@ class PaymentRequestAdapter
         }
         if (isset($paymentRequest->transientTokenJwt)) {
             $request['tokenInformation'] = [
-                'transientTokenJwt' => $testDecline ? 'test' : $paymentRequest->transientTokenJwt,
+                'transientTokenJwt' => $testDecline || $testInvalidData ? 'test' : $paymentRequest->transientTokenJwt,
             ];
         }
 
