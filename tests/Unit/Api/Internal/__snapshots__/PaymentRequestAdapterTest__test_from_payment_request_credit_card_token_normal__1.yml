@@ -7,4 +7,4 @@ processingInformation:
     commerceIndicator: internet
 orderInformation:
     amountDetails: { totalAmount: totalAmount, currency: currency }
-    billTo: { firstName: firstName, lastName: lastName, company: companyName, address1: address1, locality: city, administrativeArea: state, postalCode: zip, country: country }
+    billTo: { firstName: firstName, lastName: lastName, company: companyName, address1: address1, locality: city, administrativeArea: state, postalCode: zip, country: country, email: email }
