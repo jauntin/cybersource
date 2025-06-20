@@ -40,6 +40,20 @@ class PaymentRequestAdapter
             ];
         }
 
+        $billTo = [
+            'firstName' => $paymentRequest->firstName,
+            'lastName' => $paymentRequest->lastName,
+            'company' => $paymentRequest->companyName,
+            'address1' => $paymentRequest->address1,
+            'locality' => $paymentRequest->city,
+            'administrativeArea' => $paymentRequest->state,
+            'postalCode' => $paymentRequest->zip,
+            'country' => $paymentRequest->country,
+        ];
+        if (isset($paymentRequest->email)) {
+            $billTo['email'] = $paymentRequest->email;
+        }
+
         return array_merge($request, [
             'clientReferenceInformation' => [
                 'code' => $paymentRequest->referenceNumber,
@@ -53,16 +67,7 @@ class PaymentRequestAdapter
                     'totalAmount' => $paymentRequest->totalAmount,
                     'currency' => $paymentRequest->currency,
                 ],
-                'billTo' => [
-                    'firstName' => $paymentRequest->firstName,
-                    'lastName' => $paymentRequest->lastName,
-                    'company' => $paymentRequest->companyName,
-                    'address1' => $paymentRequest->address1,
-                    'locality' => $paymentRequest->city,
-                    'administrativeArea' => $paymentRequest->state,
-                    'postalCode' => $paymentRequest->zip,
-                    'country' => $paymentRequest->country,
-                ],
+                'billTo' => $billTo,
             ],
         ]);
     }
