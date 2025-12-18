@@ -77,7 +77,7 @@ trait MocksPaymentServices
     protected function getFakeValidToken(): string
     {
         return implode('.', [
-            base64_encode(json_encode([])),
+            base64_encode(json_encode(['random' => bin2hex(random_bytes(10))])),
             base64_encode(json_encode(['exp' => Carbon::now()->addMinutes(10)->timestamp])),
             'signature',
         ]);
